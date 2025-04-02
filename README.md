@@ -1,8 +1,8 @@
 # clippy
 
-Library to parse Kindle My Clippings.txt file into CSV.
+Python command-line tool to parse Kindle My Clippings.txt file into CSV.
 
-Output in a CSV file with the following columns:
+Output is a CSV file with the following columns:
 
 - `title_author` Title and author of work clipping is from
 - `page` Page clipping is from
@@ -11,10 +11,18 @@ Output in a CSV file with the following columns:
 - `date_added` Date clipping was added to My Clippings.txt
 - `text` Text highlighted in clipping
 
+## Dependencies
+
+- Requires Python >= 3.10
+
 ## Usage
 
-`python3 src/clippy/clippy.py "data/My Clippings.txt" "data/My Parsed Clippings.csv"`
+From the command line:
+
+```
+python3 src/clippy/clippy.py "data/My Clippings.txt" "data/My Parsed Clippings.csv"
+```
 
 ## License
 
-MIT License
+MIT
