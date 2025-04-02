@@ -1,5 +1,6 @@
 """Module to parse Kindle My Clippings.txt file into CSV"""
 
+import os
 import sys
 import re
 import csv
@@ -11,11 +12,7 @@ def get_title_author(split_line):
     :param split_line: Clipping split on linebreak
     :type split_line: String
     """
-    try:
-        return split_line[0].strip()
-    except IndexError as e:
-        print(f"Error {e} on line {split_line}")
-        return None
+    return split_line[0].strip()
 
 def get_page(split_line):
     """
@@ -128,28 +125,37 @@ def parse_line(line):
     text = get_text(line_split)
     return [title_author, page, location_start, location_end, date_added, text]
 
-def main(file_path, save_file_path):
+def main(input_file_path, output_file_path):
     """
     Parse Kindle My Clippings.txt file into CSV
 
-    :param file_path: File path to My Clippings.txt
-    :type file_path: String
-    :param save_file_path: File path to save parsed csv file
-    :type save_file_path: String
+    :param input_file_path: File path to My Clippings.txt
+    :type input_file_path: String
+    :param output_file_path: File path to save parsed csv file
+    :type output_file_path: String
     """
     # Check that file exists
+    if not os.path.exists(input_file_path):
+        print(f"Error: The file '{input_file_path}' does not exist.")
+        sys.exit(1)
+
     # Check that file is not empty
-    # Check that file has expected delimiter
-    with open (file_path, "r", encoding="utf-8-sig") as file:
+    if os.path.getsize(input_file_path) == 0:
+        print(f"Error: The file '{input_file_path}' is empty.")
+        sys.exit(1)
+
+    with open (input_file_path, "r", encoding="utf-8-sig") as file:
         content = file.read()
         lines = content.split("==========")
+
     clippings = [["title_author", "page", "start_location", "end_location", "date_added", "text"]]
     for line in lines:
-        if line == "\n":
+        if line.strip() == "":
             continue
         parsed_line = parse_line(line)
         clippings.append(parsed_line)
-    with open(save_file_path, "w", newline="", encoding="utf-8") as file:
+
+    with open(output_file_path, "w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
         writer.writerows(clippings)
 
