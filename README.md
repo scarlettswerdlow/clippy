@@ -68,6 +68,7 @@ print("Clippings saved to data/My Parsed Clippings.csv")
 ```
 
 ## Project Structure
+```
 clippy/
 ├── src/
 │   └── clippy/
@@ -80,6 +81,7 @@ clippy/
 ├── tests/
 │   └── test_clipping.py      # Unit tests for Clipping and Clippings classes
 └── README.md                 # Project documentation
+```
 
 ## License
 This project is licensed under the MIT License.
