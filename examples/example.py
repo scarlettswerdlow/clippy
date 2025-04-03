@@ -1,24 +1,12 @@
-"""Module to parse Kindle My Clippings.txt file into CSV"""
+"""Script to demonstrate the usage of the clippy package"""
 
 import os
 import sys
-import csv
-from SplitLine import SplitLine
 
-def parse_line(line):
-    """
-    Parse Kindle clipping
+# Add the src directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-    :param line: Clipping
-    :type line: String
-    """
-    clipping = SplitLine(line)
-    title_author = clipping.get_title_author()
-    page = clipping.get_page()
-    start_location, end_location = clipping.get_locations()
-    date_added = clipping.get_date_added()
-    text = clipping.get_text()
-    return [title_author, page, start_location, end_location, date_added, text]
+from clippy.Clipping import Clipping, Clippings
 
 def main(input_file_path, output_file_path):
     """
@@ -39,20 +27,19 @@ def main(input_file_path, output_file_path):
         print(f"Error: The file '{input_file_path}' is empty.")
         sys.exit(1)
 
+    # Open raw clippings. Assumes default formating of Kindle My Clippings.txt file
     with open (input_file_path, "r", encoding="utf-8-sig") as file:
         content = file.read()
-        lines = content.split("==========")
+        raw_clippings = content.split("==========")
 
-    clippings = [["title_author", "page", "start_location", "end_location", "date_added", "text"]]
-    for line in lines:
-        if line.strip() == "":
+    clippings = Clippings()
+    for c in raw_clippings:
+        if c.strip() == "":
             continue
-        parsed_line = parse_line(line)
-        clippings.append(parsed_line)
+        clipping = Clipping(c)
+        clippings.add_clipping(clipping)
 
-    with open(output_file_path, "w", newline="", encoding="utf-8") as file:
-        writer = csv.writer(file)
-        writer.writerows(clippings)
+    clippings.save_to_csv(output_file_path)
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
