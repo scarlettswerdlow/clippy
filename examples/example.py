@@ -2,11 +2,7 @@
 
 import os
 import sys
-
-# Add the src directory to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
-
-from clippy.Clipping import Clipping, Clippings
+from clippy import Clipping, Clippings
 
 def main(input_file_path, output_file_path):
     """

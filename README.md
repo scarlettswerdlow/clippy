@@ -21,17 +21,15 @@ Clippy is a Python package for parsing Kindle's `My Clippings.txt` file. It extr
 
 ## Installation
 
-Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/clippy.git
-   cd clippy
-   ```
+```bash
+pip install kindle_clippy
+```
 
 ## Usage
 ### Programmatic Usage
 You can use Clippy as a library in your Python code:
 ```python
-from clippy.Clipping import Clipping, Clippings
+from clippy import Clipping, Clippings
 
 # Parse a single clipping
 raw_clipping = """Book Title (Author Name)
@@ -50,7 +48,7 @@ clippings.save_to_csv("output.csv")
 ### Example Script
 You can also create your own script to parse and save clippings. For example:
 ```python
-from clippy.Clipping import Clipping, Clippings
+from clippy import Clipping, Clippings
 
 # Load raw clippings from a file
 with open("data/My Clippings.txt", "r", encoding="utf-8") as file:
