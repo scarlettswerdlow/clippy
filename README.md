@@ -1,6 +1,6 @@
 # Clippy
 
-Clippy is a Python package for parsing Kindle's `My Clippings.txt` file into a structured CSV format. It extracts useful information such as the title, author, page number, Kindle locations, date added, and highlighted text, making it easier to analyze and organize your Kindle highlights.
+Clippy is a Python package for parsing Kindle's `My Clippings.txt` file. It extracts useful information such as the title, author, page number, Kindle locations, date added, and highlighted text, making it easier to analyze and organize your Kindle highlights.
 
 ## Features
 
